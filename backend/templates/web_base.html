@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/star.css' %}"/>
+<head>
+    <meta charset="UTF-8">
+    <title>{%  block title %}默认标特{% endblock %} - 小虫测试</title>
+</head>
+<body>
+
+{% block content %}
+<div>这里是默认内容，所有继承自这个模板的，如果不覆盖就显示这的默认内容</div>
+{% endblock %}
+
+<h1>{{ hello }}</h1>
+<h2>{{ myworld }}</h2>
+
+
+<div class="star"></div>
+
+      <div class="star pink"></div>
+
+      <div class="star blue"></div>
+
+<table>
+    {% for line in data %}
+    <tr>
+        <td>
+            {{ line.id }}
+        </td>
+        <td>{{ line.name }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
