@@ -35,6 +35,10 @@ def index(request):
 def index2(request):
     return render(request, 'web_index2.html')
 
+def check_register(request):
+    if request.is_ajax():
+        username=request.POST['username']
+        t_userinfo = UserInfo.objects.get()
 
 @ensure_csrf_cookie
 def register(request):
