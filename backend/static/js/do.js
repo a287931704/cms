@@ -5,7 +5,7 @@
 
 
 (function(win, doc) {
-alert(1);
+
 // 已加载模块
 var loaded = {},
 

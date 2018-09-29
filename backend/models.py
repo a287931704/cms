@@ -21,4 +21,5 @@ class UserInfo(BaseTable):
     username = models.CharField('用户名', max_length=20, unique=True, null=False)
     password = models.CharField('密码', max_length=20, null=False)
     email = models.EmailField('邮箱', null=False, unique=True)
+    phone = models.CharField('电话', max_length=20)
     status = models.IntegerField('有效/无效', default=1)

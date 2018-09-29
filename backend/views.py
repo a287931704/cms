@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.template.context_processors import csrf
+from django.views.decorators.csrf import ensure_csrf_cookie
+from .models import UserInfo
 
 
 # Create your views here.
@@ -31,3 +34,24 @@ def index(request):
 
 def index2(request):
     return render(request, 'web_index2.html')
+
+
+@ensure_csrf_cookie
+def register(request):
+    ctx = {}
+    ctx.update(csrf(request))
+    if request.POST:
+        ctx['username'] = request.POST['Name']
+        ctx['email'] = request.POST['Email']
+        ctx['password'] = request.POST['Password']
+        ctx['phone'] = request.POST['Phone Number']
+        t_userinfo = UserInfo(username=ctx['username'], password=ctx['password'], email=ctx['email'], phone=ctx['phone'])
+        t_userinfo.save()
+        return render(request, 'web_search.html', ctx)
+
+
+@ensure_csrf_cookie
+def login(request):
+    ctx = {}
+    ctx.update(csrf(request))
+    render(request, 'web_base.html')
