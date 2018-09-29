@@ -19,5 +19,6 @@ from backend import views as backend_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',backend_views.index),
+    path('', backend_views.index),
+    path('index/', backend_views.index2),
 ]

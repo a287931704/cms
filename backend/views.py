@@ -15,8 +15,10 @@ def helloworld(request):
     content['myworld'] = 'my world!!!'
     return render(request, 'web_index.html', content)
 
+
 def testsearch(request):
     return render(request, 'web_search.html')
+
 
 def printuser(request):
     myinfo = {'user': 'aa', 'pwd': 'pwaa'}
@@ -26,3 +28,6 @@ def printuser(request):
 def index(request):
     return render(request, 'web_index.html')
 
+
+def index2(request):
+    return render(request, 'web_index2.html')
