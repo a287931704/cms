@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -35,10 +37,14 @@ def index(request):
 def index2(request):
     return render(request, 'web_index2.html')
 
+
 def check_register(request):
     if request.is_ajax():
-        username=request.POST['username']
-        t_userinfo = UserInfo.objects.get()
+        username = request.POST['username']
+        t_userinfo = UserInfo.objects.get(username=username)
+        if t_userinfo:
+            ret = {"msg": "用户名重复"}
+        return HttpResponse(json.dump(ret))
 
 @ensure_csrf_cookie
 def register(request):
@@ -49,7 +55,8 @@ def register(request):
         ctx['email'] = request.POST['Email']
         ctx['password'] = request.POST['Password']
         ctx['phone'] = request.POST['Phone Number']
-        t_userinfo = UserInfo(username=ctx['username'], password=ctx['password'], email=ctx['email'], phone=ctx['phone'])
+        t_userinfo = UserInfo(username=ctx['username'], password=ctx['password'], email=ctx['email'],
+                              phone=ctx['phone'])
         t_userinfo.save()
         return render(request, 'web_search.html', ctx)
 

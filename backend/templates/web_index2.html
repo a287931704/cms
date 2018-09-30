@@ -20,10 +20,24 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/star.css' %}"/>
 	<link rel="stylesheet" href="{% static 'css/style1.css' %}" type="text/css" media="all">
 
-<script>
+            <script>
+                $("#register_name").focus(function(){
+                    alert(1)
+                    $.ajax({
+                        url: "/goto_reg/",
+                        type:"POST",
+                        data:{
+                            "name": $("register_name").val(),
+                            "csrfmiddlewaretoken": $('[name="csrfmiddlewaretoken]').val()
+                        },
+                        success:function(data){
+                            var dataobj=JSON.parse(data);
+                            $("span").text(dataobj["msg"])
+                        }
+                    })
+                })
 
-
-</script>
+            </script>
 
 </head>
 <!-- //Head -->
@@ -55,6 +69,7 @@
                         <input type="submit" value="登 录">
                     </div>
                 </form>
+
 {#                <ul class="tick w3layouts agileits">#}
 {#                    <li>#}
 {#                        <input type="checkbox" id="brand1" value="">#}
@@ -86,12 +101,13 @@
                 <h2>注 册</h2>
                 <form action="/register/" method="post">
                     {% csrf_token %}
-                    <input type="text" Name="Name" placeholder="用户名" required="">
+                    <input type="text" Name="Name" id="register_name" placeholder="用户名" required="">
+                    <span></span>
                     <input type="text" Name="Email" placeholder="邮箱" required="">
                     <input type="password" Name="Password" placeholder="密码" required="">
                     <input type="text" Name="Phone Number" placeholder="手机号码" required="">
                     <div class="send-button w3layouts agileits">
-                        <input type="submit" value="注册">
+                        <input type="submit" id="btn_register" value="注册">
                     </div>
                 </form>
 

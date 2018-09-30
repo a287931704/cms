@@ -73,6 +73,7 @@ h1 {
     border-bottom: none;
     border-bottom-left-radius: initial;
     border-bottom-right-radius: initial;
+    position: relative;
 }
 
 .login {
