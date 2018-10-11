@@ -19,15 +19,30 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/body.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/star.css' %}"/>
 	<link rel="stylesheet" href="{% static 'css/style1.css' %}" type="text/css" media="all">
+    <script type="text/javascript">
+        $(document).ready(function(){
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+    function ajaxhandler(data,status){
+        alert(data);
+    }
+    $("#bu").click(function(){
+        $.post("/ajax_post",{"id":1},ajaxhandler);
+    });
+    });
 
-            <script>
-                $("#register_name").focus(function(){
-                    alert(1)
+        $.ajaxSetup({
+                        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+                    });
+        $(function(){
+
+                $("#register_name").blur(function(){
                     $.ajax({
                         url: "/goto_reg/",
                         type:"POST",
                         data:{
-                            "name": $("register_name").val(),
+                            "username": $("register_name").val(),
                             "csrfmiddlewaretoken": $('[name="csrfmiddlewaretoken]').val()
                         },
                         success:function(data){
@@ -36,8 +51,35 @@
                         }
                     })
                 })
+            $.get('area1/',function(dic) {
+                pro=$('#pro')
+                $.each(dic.data,function(index,item){
+                    pro.append('<option value='+item[0]+'>'+item[1]+'</option>');
+                })
+            });
 
-            </script>
+            $('#pro').change(function(){
+                $.post($(this).val()+'/',function(dic){
+                    city=$('#city');
+                    city.empty().append('<option value="">请选择市</option>');
+                    $.each(dic.data,function(index,item){
+                        city.append('<option value='+item.id+'>'+item.title+'</option>');
+                    })
+                });
+            });
+
+            $('#city').change(function(){
+                $.post($(this).val()+'/',function(dic){
+                    dis=$('#dis');
+                    dis.empty().append('<option value="">请选择区县</option>');
+                    $.each(dic.data,function(index,item){
+                        dis.append('<option value='+item.id+'>'+item.title+'</option>');
+                    })
+                })
+            });
+
+        });
+    </script>
 
 </head>
 <!-- //Head -->
