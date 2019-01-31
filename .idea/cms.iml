@@ -19,6 +19,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="HttpRunnerManager-master" />
     <orderEntry type="module" module-name="mysite" />
+    <orderEntry type="module" module-name="Lap-Project" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
